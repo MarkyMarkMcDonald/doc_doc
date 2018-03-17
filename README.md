@@ -1,6 +1,6 @@
 # DocDoc
 
-A Doc[tor] for your Doc[ument]s with invalid links.
+A Doc[tor] for your Doc[umentation]'s invalid links.
 
 
 ## Installation
