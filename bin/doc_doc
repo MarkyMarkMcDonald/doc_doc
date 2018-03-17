@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'doc_doc'
+puts DocDoc.prescription(ARGV)
+

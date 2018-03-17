@@ -22,10 +22,8 @@ $ doc_doc 'https://github.com/SeleniumHQ/selenium/wiki/Logging' --stay-within 'h
 {
   "links": [
     {
-      "parentText": "Please see the capabilities page for more information about Firefox specific capabilities.",
-      "linkText": "capabilities page",
-      "href": "../DesiredCapabilities",
       "page": "https://github.com/SeleniumHQ/selenium/wiki/Logging",
+      "href": "../DesiredCapabilities",
       "error": {
         "type": "http",
         "status": 404

@@ -9,8 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Mark McDonald"]
   spec.email         = ["mark.mcdonald.ga@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{Helps keep links in documentation up to date}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
@@ -28,7 +27,11 @@ Gem::Specification.new do |spec|
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.executables << 'doc_doc'
   spec.require_paths = ["lib"]
+
+  spec.add_runtime_dependency "capybara"
+  spec.add_runtime_dependency "poltergeist"
 
   spec.add_development_dependency "bundler", "~> 1.16.a"
   spec.add_development_dependency "rake", "~> 10.0"

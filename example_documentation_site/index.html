@@ -1,0 +1,33 @@
+<html>
+<body>
+<h2>Happy Paths:</h2>
+<ul>
+    <li>
+        <a href="page-that-exists.html">Page that exists</a>
+    </li>
+    <li>
+        <a href="page_with_url_fragment.html#what-you-expected">Just one url fragment</a>
+    </li>
+    <li>
+        <a href="https://www.example.com">External site</a>
+    </li>
+</ul>
+
+
+<h2>Sad Paths:</h2>
+<ul>
+    <li>
+        <a href="some-page-that-does-not-exist.html">Page that does not exist anymore</a>
+    </li>
+    <li>
+        <a href="page_with_too_many_of_the_same_url_fragment.html#what-you-expected">Too many of the same url fragments</a>
+    </li>
+    <li>
+        <a href="page_without_url_fragment.html#what-you-expected">No url fragments</a>
+    </li>
+    <li>
+        <a href="https://www.nonexistant.example/">External non-existent site</a>
+    </li>
+</ul>
+</body>
+</html>
