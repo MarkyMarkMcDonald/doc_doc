@@ -1,28 +1,41 @@
 # DocDoc
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/doc_doc`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A Doc[tor] for your Doc[ument]s with ~invalid~ links.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'doc_doc'
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install doc_doc
+$ gem install doc_doc
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+$ doc_doc 'https://github.com/SeleniumHQ/selenium/wiki/Logging' --stay-within 'https://github.com/SeleniumHQ/selenium/wiki' > invalid_links.json
+```
+
+`invalid_links.json` identifies links that could use a little doctoring:
+
+```json
+{
+  links: [
+    {
+      parentText: 'Please see the capabilities page for more information about Firefox specific capabilities.',
+      linkText: 'capabilities page',
+      href: '../DesiredCapabilities',
+      page: 'https://github.com/SeleniumHQ/selenium/wiki/Logging',
+      error: {
+        type: 'http',
+        status: 404
+      }
+    }
+  ]
+}
+```
+
+Doc Doc aims to find links that:
+- lead to pages that do not load (http statuses in the 400 or 500 ranges)
+- lead to pages without the elements referenced by the url fragment
 
 ## Development
 
