@@ -22,7 +22,7 @@
            if @patient.home && @patient.home.match(/#([^#]+)$/)
              hyper_fragment = @patient.home.split('#').last
              begin
-               nil if @horse_and_buggy.find("##{hyper_fragment}")
+               nil if @horse_and_buggy.find("[id=\"#{hyper_fragment}\"]")
              rescue Capybara::Ambiguous
                OpenStruct.new(type: 'fragment', description: 'More than one dom node has this id')
              rescue Capybara::ElementNotFound
