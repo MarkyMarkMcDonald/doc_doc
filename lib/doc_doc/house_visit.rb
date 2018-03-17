@@ -27,6 +27,10 @@
                OpenStruct.new(type: 'fragment', description: 'More than one dom node has this id')
              rescue Capybara::ElementNotFound
                OpenStruct.new(type: 'fragment', description: 'No dom node with this id found')
+             rescue StandardError => e
+               if $DEBUG
+                 puts "[DOC_DOC ERROR] Ran into exception when trying to follow: #{@patient.home}\n#{e.message}"
+               end
              end
            else
              nil
