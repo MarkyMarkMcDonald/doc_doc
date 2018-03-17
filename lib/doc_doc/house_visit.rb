@@ -19,7 +19,7 @@
 
        def illness
          @illness ||= begin
-           if @patient.home && @patient.home.match(/#/)
+           if @patient.home && @patient.home.match(/#([^#]+)$/)
              hyper_fragment = @patient.home.split('#').last
              begin
                nil if @horse_and_buggy.find("##{hyper_fragment}")
