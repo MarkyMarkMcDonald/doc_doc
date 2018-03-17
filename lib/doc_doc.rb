@@ -5,17 +5,15 @@ require 'doc_doc/house_visit'
 require 'doc_doc/patient'
 require 'doc_doc/prescription'
 require 'doc_doc/treatment'
+require 'doc_doc/configuration'
 
 module DocDoc
-  def self.prescription(arguments)
-    danger_zone = arguments[0]
-    throttle = arguments[1]
-
-    horse_and_buggy = HorseAndBuggy.new(throttle)
-    patients = Quarantine.new(horse_and_buggy, danger_zone).patients
+  def self.prescription(config)
+    horse_and_buggy = HorseAndBuggy.new(config.throttle)
+    patients = Quarantine.new(horse_and_buggy, config.danger_zone).patients
 
     treatments = patients.map do |patient|
-      visit = HouseVisit.new(horse_and_buggy, patient, danger_zone)
+      visit = HouseVisit.new(horse_and_buggy, patient, config.danger_zone)
       visit.start
       illness = visit.illness
       Treatment.new(patient, illness, visit) if illness

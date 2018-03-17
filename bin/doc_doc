@@ -1,5 +1,22 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
 require 'doc_doc'
-puts DocDoc.prescription(ARGV)
+
+options = DocDoc::Configuration::Options.new(ARGV[0], 1)
+
+OptionParser.new do |parser|
+  parser.banner = 'Usage: doc_doc http://www.some-documentation.example [options]'
+
+  parser.on("-tTHROTTLE", "--throttle=THROTTLE", Integer, "Seconds to wait between requests") do |n|
+    options.throttle = n
+  end
+
+  parser.on("-h", "--help", "Prints this help") do
+    puts parser
+    exit
+  end
+end.parse!
+
+puts DocDoc.prescription(options)
 

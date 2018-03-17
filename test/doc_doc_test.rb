@@ -14,7 +14,8 @@ class DocDocTest < Minitest::Test
     sleep 1
 
     quarantine_entrance = "http://localhost:#{@server.config[:Port]}"
-    prescription = DocDoc.prescription([quarantine_entrance, nil])
+    config = DocDoc::Configuration::Options.new(quarantine_entrance, nil)
+    prescription = DocDoc.prescription(config)
 
     expected_prescription = {
         "links" => [
