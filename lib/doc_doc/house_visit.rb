@@ -1,3 +1,5 @@
+require 'addressable'
+
 module DocDoc
   class HouseVisit
     def initialize(horse_and_buggy, patient, starting_location)
@@ -19,10 +21,9 @@ module DocDoc
 
     def illness
       @illness ||= begin
-        if @patient.home && @patient.home.match(/#([^#]+)$/)
-          hyper_fragment = @patient.home.split('#').last
+        if address.normalized_fragment
           begin
-            nil if @horse_and_buggy.find("[id=\"#{hyper_fragment}\"]")
+            nil if @horse_and_buggy.find("[id=\"#{address.normalized_fragment}\"]")
           rescue Capybara::Ambiguous
             OpenStruct.new(type: 'fragment', description: 'More than one dom node has this id')
           rescue Capybara::ElementNotFound
@@ -36,6 +37,12 @@ module DocDoc
           nil
         end
       end
+    end
+
+    private
+
+    def address
+      @address ||= Addressable::URI.parse(@patient.home)
     end
   end
 end
