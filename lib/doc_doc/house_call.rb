@@ -1,7 +1,7 @@
 require 'addressable'
 
 module DocDoc
-  class HouseVisit
+  class HouseCall
     def initialize(horse_and_buggy, patient, starting_location)
       @horse_and_buggy = horse_and_buggy
       @patient = patient

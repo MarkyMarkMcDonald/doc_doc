@@ -1,14 +1,14 @@
 module DocDoc
   class Treatment
-    def initialize(patient, illness, house_visit)
+    def initialize(patient, illness, house_call)
       @patient = patient
       @illness = illness
-      @house_visit = house_visit
+      @house_call = house_call
     end
 
     def as_json
       {
-          page: @house_visit.starting_location,
+          page: @house_call.starting_location,
           href: @patient.home,
           error: @illness.to_h
       }
