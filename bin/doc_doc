@@ -3,7 +3,10 @@
 require 'optparse'
 require 'doc_doc'
 
-options = DocDoc::Configuration::Options.new(ARGV[0], 1)
+options = DocDoc::Configuration::Options.new(
+    ARGV[0],
+    DocDoc::HorseAndBuggy::DEFAULT_THROTTLE
+)
 
 OptionParser.new do |parser|
   parser.banner = 'Usage: doc_doc http://www.some-documentation.example [options]'
