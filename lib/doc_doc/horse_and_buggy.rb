@@ -17,7 +17,7 @@ module DocDoc
 
       Capybara.register_driver :headless_chrome do |app|
         capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-            chromeOptions: {args: %w()}
+            chromeOptions: {args: ENV.fetch('HEAD_ON') ? %w() : %w(headless)}
         )
 
         Capybara::Selenium::Driver.new(
