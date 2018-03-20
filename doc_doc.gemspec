@@ -31,8 +31,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "capybara"
-  spec.add_runtime_dependency "poltergeist"
+  spec.add_runtime_dependency "capybara-selenium"
   spec.add_runtime_dependency "addressable"
+  spec.add_runtime_dependency "http"
 
   spec.add_development_dependency "bundler", "~> 1.16.a"
   spec.add_development_dependency "rake", "~> 10.0"

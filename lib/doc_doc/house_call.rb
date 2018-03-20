@@ -11,12 +11,14 @@ module DocDoc
     attr_reader :starting_location
 
     def start
-      @horse_and_buggy.visit_house(@patient.home)
-      if @horse_and_buggy.status_code >= 400
-        @illness = OpenStruct.new(type: 'http', status: @horse_and_buggy.status_code)
+      road_closure = @horse_and_buggy.road_closure(@patient.home)
+      if road_closure
+        @illness = OpenStruct.new(type: 'http', description: road_closure)
+      else
+        @horse_and_buggy.visit_house(@patient.home)
       end
-    rescue Capybara::Poltergeist::StatusFailError
-      @illness = OpenStruct.new(type: 'http', description: 'Could not reach server')
+    rescue => e
+      @illness = OpenStruct.new(type: 'http', description: 'Unknown error visiting house', exception: e)
     end
 
     def illness

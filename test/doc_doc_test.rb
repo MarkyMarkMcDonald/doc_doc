@@ -23,8 +23,8 @@ class DocDocTest < Minitest::Test
                 "page" => quarantine_entrance,
                 "href" => "#{quarantine_entrance}/some-page-that-does-not-exist.html",
                 "error" => {
-                    "type" => 'http',
-                    "status" => 404
+                    "type" => "http",
+                    "description" => 404
                 }
             },
             {
@@ -48,7 +48,7 @@ class DocDocTest < Minitest::Test
                 "href" => "https://www.nonexistant.example/",
                 "error" => {
                     "type" => "http",
-                    "description" => "Could not reach server"
+                    "description" => "Could not reach destination"
                 }
             }
         ]
