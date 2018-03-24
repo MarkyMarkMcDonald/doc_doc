@@ -1,4 +1,4 @@
-require "doc_doc/version"
+require 'doc_doc/version'
 require 'doc_doc/horse_and_buggy'
 require 'doc_doc/quarantine'
 require 'doc_doc/house_call'
