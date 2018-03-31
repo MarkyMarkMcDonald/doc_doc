@@ -3,11 +3,19 @@ require "webrick/httpserver"
 
 class DocDocTest < Minitest::Test
   def test_it_does_something_useful
+    @external_server = WEBrick::HTTPServer.new(
+        BindAddress: 'localhost',
+        Port: 7654,
+        DocumentRoot: __dir__ + '/../example_external_site'
+    )
     @server = WEBrick::HTTPServer.new(
         BindAddress: 'localhost',
         Port: 0,
         DocumentRoot: __dir__ + '/../example_documentation_site'
     )
+    Thread.new do
+      @external_server.start
+    end
     Thread.new do
       @server.start
     end
