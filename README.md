@@ -9,11 +9,18 @@ A Doc[tor] for your Doc[umentation]'s invalid links.
 $ gem install doc_doc
 ```
 
+## Goal
+
+Doc Doc strives to find sick links for you to treat. Doc Doc finds links that:
+
+- lead to pages that do not load (http statuses in the 400 or 500 ranges)
+- lead to pages without the elements referenced by the link's url fragment
+
 
 ## Usage
 
 ```
-$ doc_doc 'https://github.com/SeleniumHQ/selenium/wiki/Logging' --stay-within 'https://github.com/SeleniumHQ/selenium/wiki' > invalid_links.json
+$ doc_doc 'https://github.com/SeleniumHQ/selenium/wiki/Logging' > invalid_links.json
 ```
 
 `invalid_links.json` identifies links that could use a little doctoring:
@@ -32,10 +39,6 @@ $ doc_doc 'https://github.com/SeleniumHQ/selenium/wiki/Logging' --stay-within 'h
   ]
 }
 ```
-
-Doc Doc aims to find links that:
-- lead to pages that do not load (http statuses in the 400 or 500 ranges)
-- lead to pages without the elements referenced by the url fragment
 
 
 ## Development
