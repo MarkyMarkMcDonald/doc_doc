@@ -1,3 +1,5 @@
+require "webrick/httpserver"
+
 module StaticServer
   def self.start(directory, port)
     server = WEBrick::HTTPServer.new(

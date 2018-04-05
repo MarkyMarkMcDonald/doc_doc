@@ -1,5 +1,4 @@
 require "test_helper"
-require "webrick/httpserver"
 require "static_server"
 
 class LinksOnAPageTest < Minitest::Test
