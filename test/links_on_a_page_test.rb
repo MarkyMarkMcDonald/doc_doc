@@ -3,28 +3,23 @@ require "webrick/httpserver"
 
 class LinksOnAPageTest < Minitest::Test
   def test_it_does_something_useful
-    @external_server = WEBrick::HTTPServer.new(
-        BindAddress: 'localhost',
-        Port: 7654,
-        DocumentRoot: __dir__ + '/../example_external_site'
-    )
-    @server = WEBrick::HTTPServer.new(
-        BindAddress: 'localhost',
-        Port: 0,
-        DocumentRoot: __dir__ + '/../example_documentation_site'
-    )
-    Thread.new do
-      @external_server.start
-    end
-    Thread.new do
-      @server.start
-    end
+    @server = start_our_docs_server
+    @external_server = start_external_site_server
 
     quarantine_entrance = "http://localhost:#{@server.config[:Port]}"
     config = DocDoc::Configuration::Options.new(quarantine_entrance, nil)
     prescription = DocDoc.prescription(config)
 
-    expected_prescription = {
+    assert_equal(expected_prescription(quarantine_entrance), JSON.parse(prescription.to_s))
+  ensure
+    @server.shutdown
+    @external_server.shutdown
+  end
+
+  private
+
+  def expected_prescription(quarantine_entrance)
+    {
         "links" => [
             {
                 "page" => quarantine_entrance,
@@ -60,10 +55,29 @@ class LinksOnAPageTest < Minitest::Test
             }
         ]
     }
+  end
 
-    assert_equal(expected_prescription, JSON.parse(prescription.to_s))
-  ensure
-    @server.shutdown
-    @external_server.shutdown
+  def start_our_docs_server
+    server = WEBrick::HTTPServer.new(
+        BindAddress: 'localhost',
+        Port: 0,
+        DocumentRoot: __dir__ + '/../example_documentation_site'
+    )
+    Thread.new do
+      server.start
+    end
+    server
+  end
+
+  def start_external_site_server
+    server = WEBrick::HTTPServer.new(
+        BindAddress: 'localhost',
+        Port: 7654,
+        DocumentRoot: __dir__ + '/../example_external_site'
+    )
+    Thread.new do
+      server.start
+    end
+    server
   end
 end
