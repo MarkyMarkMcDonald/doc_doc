@@ -59,7 +59,9 @@ class LinksOnAPageTest < Minitest::Test
 
   def start_our_docs_server
     server = WEBrick::HTTPServer.new(
+        AccessLog: [],
         BindAddress: 'localhost',
+        Logger: WEBrick::Log.new(File.open(File::NULL, 'w')),
         Port: 0,
         DocumentRoot: __dir__ + '/../example_documentation_site'
     )
@@ -71,6 +73,8 @@ class LinksOnAPageTest < Minitest::Test
 
   def start_external_site_server
     server = WEBrick::HTTPServer.new(
+        AccessLog: [],
+        Logger: WEBrick::Log.new(File.open(File::NULL, 'w')),
         BindAddress: 'localhost',
         Port: 7654,
         DocumentRoot: __dir__ + '/../example_external_site'
