@@ -1,5 +1,7 @@
+require 'doc_doc/configuration/crawling'
+
 module DocDoc
-  class Configuration
-    Options = Struct.new(:danger_zone, :throttle)
+  module Configuration
+    Options = Struct.new(:danger_zone, :throttle, :crawling_options)
   end
 end
