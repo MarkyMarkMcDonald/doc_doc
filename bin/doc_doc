@@ -5,8 +5,7 @@ require 'doc_doc'
 
 options = DocDoc::Configuration::Options.new(
     ARGV[0],
-    DocDoc::HorseAndBuggy::DEFAULT_THROTTLE,
-    DocDoc::Configuration::Crawling::DEFAULT_OPTIONS
+    DocDoc::HorseAndBuggy::DEFAULT_THROTTLE
 )
 
 OptionParser.new do |parser|

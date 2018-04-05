@@ -1,9 +1,15 @@
 module DocDoc
   class Treatment
+    attr_reader :patient
+
     def initialize(patient, illness, house_call)
       @patient = patient
       @illness = illness
       @house_call = house_call
+    end
+
+    def starting_location
+      @house_call.starting_location
     end
 
     def as_json
