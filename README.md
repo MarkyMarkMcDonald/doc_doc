@@ -48,26 +48,35 @@ $ doc_doc 'https://github.com/SeleniumHQ/selenium/wiki/Logging' > invalid_links.
 $ doc_doc 'https://github.com/SeleniumHQ/selenium/wiki/Logging' --crawl-within 'https://github.com/SeleniumHQ/selenium/wiki' > invalid_links.json
 ```
 
-When the `crawl-within` option is set, Doc doc will also check links on pages linked out to from the starting page, so long as the url of those pages are prefixed with the `crawl-within` value.
+By default, Doc doc only checks links on the starting page. 
 
-By default, Doc doc only branches out once.
+You can pass the `max-spiderings` option to crawl outwards from the starting site.
 
 Given a web site that has links like so:
 
 `https://www.example.com` -> `https://www.example.com/page1` -> `https://www.example.com/page2` -> `https://www.example.com/page3`
 
-Doc doc will check links on both `https://www.example.com` and `https://www.example.com/page1`, but not the other pages.
+`
+$ doc_doc 'https://www.example.com' --max-spiderings 1
+`
+would also include `https://www.example.com/page2`, but not `https://www.example.com/page3`.
+ 
+`$ doc_doc 'https://www.example.com' --max-spiderings 2`
 
-You can override the max amount of "spidering" with the `max-spidering` option. 
+would also include `https://www.example.com/page3`
 
-For example,
 
-`$ doc_doc 'https://www.example.com' --crawl-within 'https://www.example.com' --max-spidering 2`
+#### Ignoring links on external sites
+
+You can pass the `crawl-within` option to stop crawling or checking links after you land on a page outside the boundary.
+
+`$ doc_doc 'https://www.example.com' --max-spiderings 1 --crawl-within 'https://www.example.com'`
 
 would also include `https://www.example.com/page2`, but not `https://www.example.com/page3`
 
-There is currently no concept of a "unique page". If `https://www.example.com/page1` links back to `https://www.example.com` and `max-spidering` is set to 2 or higher, then sick links on `https://www.example.com` will be included twice. 
+There is currently no concept of a "unique page". If `https://www.example.com/page1` links back to `https://www.example.com` and `max-spiderings` is set to 2 or higher, then sick links on `https://www.example.com` will be included twice. 
 
+setting `crawl_within` without `max-spiderings` is undefined behavior.
 
 ## Development
 
