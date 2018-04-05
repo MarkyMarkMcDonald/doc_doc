@@ -64,5 +64,6 @@ class LinksOnAPageTest < Minitest::Test
     assert_equal(expected_prescription, JSON.parse(prescription.to_s))
   ensure
     @server.shutdown
+    @external_server.shutdown
   end
 end
