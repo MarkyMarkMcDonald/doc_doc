@@ -3,8 +3,8 @@ require "webrick/httpserver"
 
 class LinksOnAPageTest < Minitest::Test
   def test_it_does_something_useful
-    @server = start_our_docs_server
-    @external_server = start_external_site_server
+    @server = start_server('example_documentation_site', 0)
+    @external_server = start_server('example_external_site', 7654)
 
     quarantine_entrance = "http://localhost:#{@server.config[:Port]}"
     config = DocDoc::Configuration::Options.new(quarantine_entrance, nil)
@@ -57,27 +57,13 @@ class LinksOnAPageTest < Minitest::Test
     }
   end
 
-  def start_our_docs_server
+  def start_server(directory, port)
     server = WEBrick::HTTPServer.new(
         AccessLog: [],
         BindAddress: 'localhost',
         Logger: WEBrick::Log.new(File.open(File::NULL, 'w')),
-        Port: 0,
-        DocumentRoot: __dir__ + '/../example_documentation_site'
-    )
-    Thread.new do
-      server.start
-    end
-    server
-  end
-
-  def start_external_site_server
-    server = WEBrick::HTTPServer.new(
-        AccessLog: [],
-        Logger: WEBrick::Log.new(File.open(File::NULL, 'w')),
-        BindAddress: 'localhost',
-        Port: 7654,
-        DocumentRoot: __dir__ + '/../example_external_site'
+        Port: port,
+        DocumentRoot: __dir__ + "/../#{directory}"
     )
     Thread.new do
       server.start
