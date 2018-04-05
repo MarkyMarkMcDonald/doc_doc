@@ -1,7 +1,7 @@
 require "test_helper"
 require "webrick/httpserver"
 
-class DocDocTest < Minitest::Test
+class LinksOnAPageTest < Minitest::Test
   def test_it_does_something_useful
     @external_server = WEBrick::HTTPServer.new(
         BindAddress: 'localhost',
