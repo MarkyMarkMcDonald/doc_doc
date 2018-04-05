@@ -15,31 +15,36 @@ module DocDoc
 
     patient_zero = Patient.new(config.danger_zone)
 
-    patients += Quarantine.new(horse_and_buggy, patient_zero.home).patients
+    current_iteration = {
+        patient_zero: patient_zero,
+        patients: Quarantine.new(horse_and_buggy, patient_zero.home).patients,
+        treatments: []
+    }
+    current_iteration[:patients] = Quarantine.new(horse_and_buggy, current_iteration[:patient_zero].home).patients
 
-    treatments += patients.map do |patient|
-      treat(patient_zero.home, horse_and_buggy, patient)
+    treatments += current_iteration[:patients].map do |patient|
+      treat(current_iteration[:patient_zero].home, horse_and_buggy, patient)
     end.compact
 
+    patients += current_iteration[:patients]
     ill_patients = patients.select do |patient|
       treatments.map(&:patient).include?(patient)
     end
 
-    sub_patients = patients
     (1..config.crawling_options.max_spiderings).each do
-      foo = (sub_patients - ill_patients).map do |patient|
+      outbreaks = (current_iteration[:patients] - ill_patients).map do |patient|
         [patient, Quarantine.new(horse_and_buggy, patient.home).patients]
       end
 
-      sub_treatments = foo.flat_map do |sub_patient_zero, sub_sub_patients|
+      sub_treatments = outbreaks.flat_map do |sub_patient_zero, sub_sub_patients|
         sub_sub_patients.map do |sub_patient|
           treat(sub_patient_zero.home, horse_and_buggy, sub_patient)
         end.compact
       end
 
       treatments += sub_treatments
-      sub_patients = foo.flat_map do |f| f[1] end
-      patients += sub_patients
+      current_iteration[:patients] = outbreaks.flat_map do |outbreak| outbreak[1] end
+      patients += current_iteration[:patients]
       ill_patients = patients.select do |patient|
         treatments.map(&:patient).include?(patient)
       end
