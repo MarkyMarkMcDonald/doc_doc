@@ -19,7 +19,6 @@ class LinksOnAPageTest < Minitest::Test
     Thread.new do
       @server.start
     end
-    sleep 1
 
     quarantine_entrance = "http://localhost:#{@server.config[:Port]}"
     config = DocDoc::Configuration::Options.new(quarantine_entrance, nil)
